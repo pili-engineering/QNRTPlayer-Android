@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.qiniu.droid.rtplayer.demo.activity.MainActivity">
+
+    <ImageButton
+        android:id="@+id/setting_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/set"
+        android:background="@color/white"
+        android:layout_margin="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickSetting" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@id/setting_btn"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/app_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_tips"
+        android:textColor="@color/fontColor"
+        android:textSize="24sp"
+        android:alpha="0.65"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_tips"
+        android:layout_alignStart="@id/app_tips"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/background_niu" />
+
+    <LinearLayout
+        android:id="@+id/streaming_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="90dp"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/app_tips"
+        android:background="@drawable/oval_btn_background"
+        android:onClick="onClickToStreaming">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/streaming"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginEnd="4dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/go"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playing_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/streaming_btn"
+        android:background="@drawable/oval_btn_background"
+        android:onClick="onClickToPlaying">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/playing"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginEnd="4dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/go"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+</RelativeLayout>

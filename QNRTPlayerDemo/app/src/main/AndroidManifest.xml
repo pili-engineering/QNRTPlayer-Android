@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.qiniu.droid.rtplayer.demo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".StreamingApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_config"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="735641c8e9f7f4044d81517cf7b41421"/>
+
+        <activity android:name=".activity.WelcomeActivity"
+                  android:theme="@style/AppThemeFullscreen"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MainActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name=".activity.SettingActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name=".activity.AddressConfigActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name=".activity.StreamingActivity"
+                  android:theme="@style/AppThemeFullscreen"
+                  android:screenOrientation="portrait"
+                  android:launchMode="singleTop" />
+        <activity android:name=".activity.PlayingActivity"
+                  android:theme="@style/AppThemeFullscreen"
+                  android:screenOrientation="portrait"
+                  android:launchMode="singleTop" />
+        <service android:name=".service.DownloadService"
+                 android:exported="false"/>
+        <provider
+            android:authorities="${applicationId}.update.provider"
+            android:name=".utils.UpdateApkFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_apk_paths" />
+        </provider>
+    </application>
+
+</manifest>

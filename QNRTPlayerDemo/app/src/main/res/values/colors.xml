@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#0EB7FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="fontColor">#4A4A4A</color>
+    <color name="backgroundStartColor">#0EB7FF</color>
+    <color name="backgroundEndColor">#0681FF</color>
+    <color name="popWindowBackgroundColor">#F3F3F3</color>
+    <color name="logTextBackground">#49494B</color>
+    <color name="red">#CD5849</color>
+    <color name="transparentBackground">#0000</color>
+</resources>

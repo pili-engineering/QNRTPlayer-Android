@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/streaming_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.qiniu.droid.rtplayer.demo.ui.CameraPreviewFrameView
+        android:id="@+id/camera_preview_surfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:src="@mipmap/log_btn"
+        android:onClick="onClickLogButton"
+        android:layout_gravity="start|top"
+        android:background="@color/transparentBackground" />
+
+    <TextView
+        android:id="@+id/log_text"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:padding="8dp"
+        android:alpha="0.5"
+        android:background="@color/logTextBackground"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp">
+        <ImageButton
+            android:id="@+id/toggle_light_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/light_on"
+            android:background="@color/transparentBackground"
+            android:onClick="onClickToggleLight" />
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/switch_camera"
+            android:background="@color/transparentBackground"
+            android:layout_marginStart="16dp"
+            android:onClick="onClickSwitchCamera" />
+    </LinearLayout>
+
+    <include layout="@layout/focus_indicator" />
+
+    <ImageButton
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|start"
+        android:src="@mipmap/face_beauty"
+        android:background="@color/transparentBackground"
+        android:onClick="onClickToggleFaceBeauty" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp">
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/copy"
+            android:background="@color/transparentBackground"
+            android:onClick="onClickCopyRoomName" />
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/close"
+            android:background="@color/transparentBackground"
+            android:layout_marginStart="16dp"
+            android:onClick="onClickClose" />
+    </LinearLayout>
+</FrameLayout>

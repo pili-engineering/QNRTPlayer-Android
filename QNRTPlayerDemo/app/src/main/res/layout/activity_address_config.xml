@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/back"
+        android:layout_gravity="start"
+        android:layout_margin="16dp"
+        android:background="@color/white"
+        android:onClick="onClickBack" />
+
+    <EditText
+        android:id="@+id/address_config_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="14sp"
+        android:background="@drawable/oval_edit_text_background" />
+
+    <Button
+        android:id="@+id/start_living_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="24dp"
+        android:background="@drawable/oval_btn_background"/>
+
+    <LinearLayout
+        android:id="@+id/protocol_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+        <RadioButton
+            android:id="@+id/protocol_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agree" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/niuliving_protocol"
+            android:textColor="@color/colorAccent"
+            android:onClick="onClickProtocol" />
+    </LinearLayout>
+</LinearLayout>
