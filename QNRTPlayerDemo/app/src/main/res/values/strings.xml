@@ -51,7 +51,8 @@
     <string name="streaming_log_text">推流协议：%1$s\n推流分辨率：%2$d x %3$d\n视频码率：%4$d kbps\n音频码率：%5$d kbps\n视频帧率：%6$d fps\n音频帧率：%7$d fps</string>
     <string name="playing_log_text">卡顿次数：%1$d\n分辨率：%2$d x %3$d\n视频码率：%4$d kbps\n视频帧率：%5$d fps</string>
     <string name="buffering">Buffering</string>
-    <string name="copy_to_clipboard">房间名：%1$s 复制到剪贴板</string>
+    <string name="copy_to_clipboard">%1$s 复制到剪贴板</string>
+    <string name="cannot_copy_play_url">原始推流地址，请自行确认播放地址</string>
     <string name="android_auto_update_download_progress">正在下载:%1$d%%</string>
     <string name="android_auto_update_dialog_btn_download">立即下载</string>
     <string name="android_auto_update_dialog_btn_cancel">以后再说</string>

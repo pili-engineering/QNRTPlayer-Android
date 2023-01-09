@@ -1,5 +1,6 @@
 package com.qiniu.droid.rtplayer.demo.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qiniu.droid.rtplayer.QNConfiguration;
+import com.qiniu.droid.rtplayer.QNDecodeMode;
 import com.qiniu.droid.rtplayer.QNError;
 import com.qiniu.droid.rtplayer.QNLogLevel;
 import com.qiniu.droid.rtplayer.QNRTPlayer;
@@ -22,6 +24,7 @@ import com.qiniu.droid.rtplayer.QNRTPlayerUrl;
 import com.qiniu.droid.rtplayer.QNSize;
 import com.qiniu.droid.rtplayer.demo.R;
 import com.qiniu.droid.rtplayer.demo.utils.Config;
+import com.qiniu.droid.rtplayer.demo.utils.StreamingSettings;
 import com.qiniu.droid.rtplayer.demo.utils.ToastUtils;
 import com.qiniu.droid.rtplayer.render.QNSurfaceView;
 import com.qiniu.droid.rtplayer.render.QNTextureView;
@@ -80,9 +83,13 @@ public class PlayingActivity extends AppCompatActivity {
         mRTUrl.setURL(videoPath);
         Log.i(TAG, "video path:" + videoPath);
 
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        QNDecodeMode decodeMode = preferences.getBoolean(StreamingSettings.SW_ENABLE, false)
+                ? QNDecodeMode.SOFTWARE : QNDecodeMode.HARDWARE;
         mRTPlayer = QNRTPlayerFactory.createQNRTPlayer(getApplicationContext());
         mRTPlayerSetting = new QNRTPlayerSetting();
         mRTPlayerSetting.setLogLevel(QNLogLevel.INFO);
+        mRTPlayerSetting.setDecodeMode(decodeMode);
         mRTPlayer.initPlayer(mRTPlayerSetting);
         mRTPlayer.setEventListener(new RTPlayerListener());
         mRTPlayer.setSurfaceRenderWindow(mRenderView);
@@ -184,6 +191,15 @@ public class PlayingActivity extends AppCompatActivity {
                 mLogText.setText(text);
 
                 mMainHandler.postDelayed(this, 1000);
+                if (mProgressBar.getVisibility() != View.GONE && (mStats != null && mStats.audioBitrate > 0)) {
+                    mMainHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 纯音频流
+                            mProgressBar.setVisibility(View.GONE);
+                        }
+                    }, 3000);
+                }
             }
        }
     }

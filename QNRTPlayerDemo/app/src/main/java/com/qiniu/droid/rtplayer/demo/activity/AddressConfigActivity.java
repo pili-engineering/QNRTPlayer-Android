@@ -65,9 +65,9 @@ public class AddressConfigActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         String roomName = preferences.getString(isStreamingType() ?
-                StreamingSettings.STREAMING_ROOMNAME : StreamingSettings.PLAYING_ROOMNAME, "http://pili-hls.qnsdk.com/sdk-live/timestamp.m3u8");
+                StreamingSettings.STREAMING_ROOMNAME : StreamingSettings.PLAYING_ROOMNAME,
+                isStreamingType() ? "testroom" : "http://pili-hls.qnsdk.com/sdk-live/timestamp.m3u8");
         mAddressConfigEditText.setText(roomName);
-
         if (isStreamingType()) {
             mAddressConfigEditText.setHint(R.string.streaming_mode_hint);
             mStartLivingButton.setText(R.string.streaming_mode_button_text);
@@ -107,13 +107,16 @@ public class AddressConfigActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        String playUrl = null;
                         if (roomName.matches(ROOM_NAME_REGEX)) {
                             mPublishUrl = QNAppServer.getInstance().requestPublishUrl(roomName);
+                            playUrl = QNAppServer.getInstance().requestPlayUrl(roomName);
                         } else if (roomName.matches(URL_REGEX)) {
                             mPublishUrl = roomName;
                         } else {
                             mPublishUrl = null;
                         }
+                        final String finalPlayUrl = playUrl;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -126,6 +129,9 @@ public class AddressConfigActivity extends AppCompatActivity {
                                 }
                                 Intent intent = new Intent(AddressConfigActivity.this, StreamingActivity.class);
                                 intent.putExtra(Config.STREAMING_URL, mPublishUrl);
+                                if (finalPlayUrl != null) {
+                                    intent.putExtra(Config.PLAYING_URL, finalPlayUrl);
+                                }
                                 startActivity(intent);
                             }
                         });

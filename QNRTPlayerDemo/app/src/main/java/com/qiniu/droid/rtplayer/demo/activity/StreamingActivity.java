@@ -62,6 +62,7 @@ public class StreamingActivity extends AppCompatActivity {
     private int mEncodingWidth;
     private int mEncodingHeight;
     private String mRoomName;
+    private String mPlayUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class StreamingActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         mRoomName = preferences.getString(StreamingSettings.STREAMING_ROOMNAME, "");
+        mPlayUrl = getIntent().getStringExtra(Config.PLAYING_URL);
         mIsQuicEnabled = preferences.getBoolean(StreamingSettings.QUIC_ENABLE, false);
 
         CameraStreamingSetting.CAMERA_FACING_ID facingId = chooseCameraFacingId();
@@ -195,7 +197,16 @@ public class StreamingActivity extends AppCompatActivity {
     }
 
     public void onClickCopyRoomName(View v) {
-
+        if (mPlayUrl == null) {
+            ToastUtils.s(this, getString(R.string.cannot_toggle_light_in_front));
+        } else {
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (cm != null) {
+                ClipData clipData = ClipData.newPlainText("Label", mPlayUrl);
+                cm.setPrimaryClip(clipData);
+            }
+            ToastUtils.s(this, String.format(getString(R.string.copy_to_clipboard), mPlayUrl));
+        }
     }
 
     public void onClickToggleLight(View v) {
