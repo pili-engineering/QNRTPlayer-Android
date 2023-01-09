@@ -7,8 +7,8 @@ android {
         applicationId "com.qiniu.droid.rtc.player.demo"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -35,8 +35,8 @@ dependencies {
     }
 
     implementation files('libs/pldroid-media-streaming-3.0.1.jar')
+    implementation 'com.qiniu:happy-dns:0.2.18'
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
-    implementation 'com.qiniu:happy-dns:0.2.17'
     implementation 'de.greenrobot:eventbus:2.4.0'
 
     implementation 'com.jakewharton:butterknife:8.8.1'

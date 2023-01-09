@@ -25,18 +25,17 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
-
+    private PermissionChecker checker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+        checker = new PermissionChecker(this);
 
         setContentView(R.layout.activity_main);
-
         EventBus.getDefault().registerSticky(this);
-
         checkUpdate();
     }
 
@@ -77,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isPermissionOK() {
-        PermissionChecker checker = new PermissionChecker(this);
         boolean isPermissionOK = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checker.checkPermission();
-        if (!isPermissionOK) {
-            ToastUtils.l(this, "Some permissions is not approved !!!");
-        }
         return isPermissionOK;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] state) {
+        super.onRequestPermissionsResult(requestCode, permissions, state);
+        checker.onRequestPermissionsResult(requestCode, permissions, state);
     }
 
     private void checkUpdate() {
