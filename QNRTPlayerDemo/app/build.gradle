@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.qiniu.droid.rtc.player.demo"
         minSdkVersion 18
-        targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.1"
+        targetSdkVersion 34
+        versionCode 3
+        versionName "1.0.2"
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
