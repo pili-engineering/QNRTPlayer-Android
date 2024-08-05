@@ -77,6 +77,17 @@
             android:onClick="onClickMuteVideo" />
 
         <ImageButton
+            android:id="@+id/snapshot"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:background="@color/transparentBackground"
+            android:onClick="onClickSnapshot"
+            android:src="@drawable/snapshot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/mute_video" />
+
+        <ImageButton
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="12dp"

@@ -31,6 +31,7 @@ import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.AUTO_BITRATE
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.CODEC_SIZE_PREBUILT_ENABLE;
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.DEBUG_MODE_ENABLED;
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.DEFAULT_CACHE;
+import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.JITTER_BUFFER_MIN_DELAY;
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.MAX_CACHE;
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.PREBUILT_CODEC_SIZE_POS;
 import static com.qiniu.droid.rtplayer.demo.utils.StreamingSettings.PREBUILT_VIDEO_QUALITY_POS;
@@ -76,6 +77,7 @@ public class SettingActivity extends AppCompatActivity {
     private EditText mCustomVideoGopEditText;
     private EditText mCustomCodecWidthEditText;
     private EditText mCustomCodecHeightEditText;
+    private EditText mJitterBufferMinDelayEditText;
 
     private boolean mIsQuicEnable = false;
     private boolean mIsSwCodecEnable = false;
@@ -93,6 +95,7 @@ public class SettingActivity extends AppCompatActivity {
     private int mEncodingHeight;
     private int mDefaultCache;
     private int mMaxCache;
+    private float mJitterBufferMinDelay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,6 +137,7 @@ public class SettingActivity extends AppCompatActivity {
         mEncodingHeight = preferences.getInt(TARGET_HEIGHT, 848);
         mDefaultCache = preferences.getInt(DEFAULT_CACHE, 100);
         mMaxCache = preferences.getInt(MAX_CACHE, 200);
+        mJitterBufferMinDelay = preferences.getFloat(JITTER_BUFFER_MIN_DELAY, 0.0F);
     }
 
     private void initView() {
@@ -167,6 +171,7 @@ public class SettingActivity extends AppCompatActivity {
         mCustomVideoGopEditText = (EditText) findViewById(R.id.custom_gop_edit_text);
         mCustomCodecWidthEditText = (EditText) findViewById(R.id.custom_width_edit_text);
         mCustomCodecHeightEditText = (EditText) findViewById(R.id.custom_height_edit_text);
+        mJitterBufferMinDelayEditText = findViewById(R.id.min_jitter_buffer_delay);
 
         mTransportProtocolRadioGroup.check(mIsQuicEnable ? mQUICModeButton.getId() : mTCPModeButton.getId());
         mCodecModeRadioGroup.check(mIsSwCodecEnable ? mSWModeButton.getId() : mHWModeButton.getId());
@@ -207,6 +212,8 @@ public class SettingActivity extends AppCompatActivity {
             mCustomCodecWidthEditText.setText(String.valueOf(mEncodingWidth));
             mCustomCodecHeightEditText.setText(String.valueOf(mEncodingHeight));
         }
+
+        mJitterBufferMinDelayEditText.setText(String.valueOf(mJitterBufferMinDelay));
 
         ((TextView)findViewById(R.id.version_code)).setText(
                 String.format(getString(R.string.version_code), getVersionDescription(), getBuildTimeDescription(), getSdkVersion()));
@@ -251,6 +258,7 @@ public class SettingActivity extends AppCompatActivity {
         editor.putBoolean(QUALITY_PRIORITY_ENABLE, mIsQualityPriorityEnable);
         editor.putBoolean(AUTO_BITRATE_ENABLED, mIsAutoBitrateEnable);
         editor.putBoolean(DEBUG_MODE_ENABLED, mIsDebugModeEnable);
+        editor.putFloat(JITTER_BUFFER_MIN_DELAY, Float.parseFloat(mJitterBufferMinDelayEditText.getText().toString()));
         editor.apply();
         finish();
     }

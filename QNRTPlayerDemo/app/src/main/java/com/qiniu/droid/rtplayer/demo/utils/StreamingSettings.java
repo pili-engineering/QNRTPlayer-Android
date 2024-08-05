@@ -22,6 +22,7 @@ public class StreamingSettings {
     public static final String PLAYING_ROOMNAME = "playingName";
     public static final String DEFAULT_CACHE = "defaultCache";
     public static final String MAX_CACHE = "maxCache";
+    public static final String JITTER_BUFFER_MIN_DELAY = "jitterBufferMinDelay";
 
     public static final String[] VIDEO_QUALITY_ARRAY = {
             "LOW1(FPS:12,Bitrate:150kps)",
