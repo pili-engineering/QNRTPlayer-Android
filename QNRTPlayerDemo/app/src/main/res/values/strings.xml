@@ -62,4 +62,7 @@
     <string name="niuliving_protocol">牛直播用户协议</string>
     <string name="niuliving_protocol_tips">需同意 NiuLiving 用户协议</string>
     <string name="version_code">版本号：%1$s, 编译时间：%2$s\nRTPlayer: %3$s</string>
+    <string name="take_snapshot_success">截图成功：%1$s</string>
+    <string name="take_snapshot_failed">截图失败：%1$s</string>
+    <string name="min_jitter_buffer_delay">播放抖动缓冲区最小延迟：</string>
 </resources>

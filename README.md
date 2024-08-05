@@ -9,6 +9,7 @@
 - 支持播放统计信息回调
 - 支持纯音频或纯视频播放
 - 支持播放音量设置
+- 支持播放画面截图
 
 # QNRTPlayer 文档
 请参考[官方文档](https://developer.qiniu.com/pili/7731/geek-android-sdk)
@@ -18,5 +19,4 @@
 当你遇到任何问题时，可以通过在 GitHub 的 repo 提交 issues 来反馈问题，请尽可能的描述清楚遇到的问题，如果有错误信息也一同附带，并且在 Labels 中指明类型为 bug 或者其他。
 
 [通过这里查看已有的 issues 和提交 Bug](https://github.com/pili-engineering/QNRTPlayer-Android/issues)
-
 

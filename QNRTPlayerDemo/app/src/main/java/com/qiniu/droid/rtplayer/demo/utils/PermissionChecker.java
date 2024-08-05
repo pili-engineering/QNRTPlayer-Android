@@ -53,6 +53,10 @@ public class PermissionChecker {
         if (!addPermission(permissionsList, Manifest.permission.RECORD_AUDIO)) {
             permissionsNeeded.add("MICROPHONE");
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+                && !addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
+        }
 
         if (!permissionsNeeded.isEmpty()) {
             // Need Rationale

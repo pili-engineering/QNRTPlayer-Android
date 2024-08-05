@@ -1,7 +1,9 @@
 package com.qiniu.droid.rtplayer.demo.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,11 @@ import com.qiniu.droid.rtplayer.demo.utils.Config;
 import com.qiniu.droid.rtplayer.demo.utils.StreamingSettings;
 import com.qiniu.droid.rtplayer.demo.utils.ToastUtils;
 import com.qiniu.droid.rtplayer.render.QNSurfaceView;
-import com.qiniu.droid.rtplayer.render.QNTextureView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,10 +92,12 @@ public class PlayingActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         QNDecodeMode decodeMode = preferences.getBoolean(StreamingSettings.SW_ENABLE, false)
                 ? QNDecodeMode.SOFTWARE : QNDecodeMode.HARDWARE;
+        float jitterBufferMinDelay = preferences.getFloat(StreamingSettings.JITTER_BUFFER_MIN_DELAY, 0.0F);
         mRTPlayer = QNRTPlayerFactory.createQNRTPlayer(getApplicationContext());
-        mRTPlayerSetting = new QNRTPlayerSetting();
-        mRTPlayerSetting.setLogLevel(QNLogLevel.INFO);
-        mRTPlayerSetting.setDecodeMode(decodeMode);
+        mRTPlayerSetting = new QNRTPlayerSetting()
+                .setLogLevel(QNLogLevel.INFO)
+                .setDecodeMode(decodeMode)
+                .setJitterBufferMinimumDelay((double) Math.round(jitterBufferMinDelay * 100) / 100);
         mRTPlayer.initPlayer(mRTPlayerSetting);
         mRTPlayer.setEventListener(new RTPlayerListener());
         mRTPlayer.setSurfaceRenderWindow(mRenderView);
@@ -144,8 +152,48 @@ public class PlayingActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickSnapshot(View v) {
+        if (mRTPlayer == null) {
+            return;
+        }
+        mRTPlayer.takeSnapshot((bitmap, error) -> {
+            if (error != null) {
+                mMainHandler.post(() -> ToastUtils.l(getApplicationContext(), String.format(getString(R.string.take_snapshot_failed), error.mDescription)));
+                return;
+            }
+            String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                    + File.separator + "Snapshot_" + System.currentTimeMillis() + ".jpg";
+            boolean ret = saveBitmapToJpeg(bitmap, filePath);
+            mMainHandler.post(() -> {
+                if (ret) {
+                    ToastUtils.l(getApplicationContext(), String.format(getString(R.string.take_snapshot_success), filePath));
+                } else {
+                    ToastUtils.l(getApplicationContext(), "截图保存失败");
+                }
+            });
+        });
+    }
+
     public void onClickLogButton(View v) {
         mLogText.setVisibility(mLogText.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private boolean saveBitmapToJpeg(Bitmap bitmap, String filePath) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        File file = new File(filePath);
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            out.write(baos.toByteArray());
+            out.flush();
+            out.close();
+            Log.d(TAG, "JPEG saved to file: " + file.getAbsolutePath());
+            return true;
+        } catch (IOException e) {
+            Log.e(TAG, "Error saving JPEG file: " + e.getMessage());
+            return false;
+        }
     }
 
     private class RTPlayerListener implements QNRTPlayer.EventListener {
