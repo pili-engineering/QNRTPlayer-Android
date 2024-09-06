@@ -10,6 +10,7 @@
 - 支持纯音频或纯视频播放
 - 支持播放音量设置
 - 支持播放画面截图
+- 支持 WHEP 协议拉流
 
 # QNRTPlayer 文档
 请参考[官方文档](https://developer.qiniu.com/pili/7731/geek-android-sdk)
